@@ -1,0 +1,18 @@
+{
+  "name": "codes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "declaracao_de_funcoes.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.27.2",
+    "node-fetch": "^3.2.8",
+    "node-localstorage": "^2.2.1"
+  }
+}

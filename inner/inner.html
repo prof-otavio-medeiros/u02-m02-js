@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inner</title>
+</head>
+
+<body>
+    <div id="innerHTML"></div>
+    <button onclick="myInnerHTML()">innerHTML</button>
+    <div id="insertAdjacentHTML"></div>
+    <button onclick="myInsertAdjacentHTML()">insertAdjacentHTML</button>
+    <script>
+        let alive = 'ALIVE';
+        function myInnerHTML() {
+            document.getElementById('innerHTML').innerHTML = `<button onclick="alert('innerHTML -> ${alive}')">alert innerHTML</button>`;
+        }
+        function myInsertAdjacentHTML() {
+            document.getElementById('insertAdjacentHTML').insertAdjacentHTML('afterbegin', `<button onclick="alert('insertAdjacentHTML -> ${alive}')">alert insertAdjacentHTML</button>`);
+        }
+    </script>
+</body>
+
+</html>

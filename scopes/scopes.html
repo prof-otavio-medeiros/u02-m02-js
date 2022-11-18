@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scopes</title>
+    <link rel="stylesheet" href="css/scopes.css">
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/scope1.js"></script>
+    <script src="scripts/scope2.js"></script>
+</head>
+
+<body>
+    <h1></h1>
+    <main>
+        <article>
+            <h1>Estudo de Escopos</h1>
+            <section>
+                <p>Realize as seguintes operações</p>
+                <ol>
+                    <li>Pressione F-12 para abrir 'Developer Tools'</li>
+                    <li>Selecione a aba 'Console'</li>
+                    <li>Pressione o ícone <img src="imgs/clear.png"> canto superior esquerdo</li>
+                    <li>Pressione o botão 'scope1()' abaixo (executará a 'function scope1()' do 'script' de nome
+                        './scripts/scope1.js')</li>
+                </ol>
+                <button onclick="scope1()">scope1()</button>
+            </section>
+            <section>
+                <p>Agora realize mais essa operação</p>
+                <ol>
+                    <li>Pressione o botão 'scope2()' abaixo (executará a 'function scope2()' do 'script' de nome
+                        './scripts/scope2.js')</li>
+                </ol>
+                <button onclick="scope2()">scope2()</button>
+            </section>
+        </article>
+    </main>
+</body>
+
+</html>
