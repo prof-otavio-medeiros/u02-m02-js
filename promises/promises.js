@@ -1,65 +1,51 @@
 import fs from "fs";
 
 function syncAction() {
-  console.log(">> 1\n");
-  const texto = fs.readFileSync("./promises/arq_00.txt");
-  console.log(texto.toString());
-  console.log("\n>> 2");
-  //
-  // SAÍDA
-  //
-  //    >> 1
-  //
-  //    [[ FILE CONTENT ]]
-  //
-  //    >> 2
-  //
+  console.log("\n>> 1\n");
+  const data = fs.readFileSync("./arq_00.txt", "utf-8");
+  console.log(data.toString());
+  console.log("\n>> 2\n");
 }
 
 function asyncAction() {
-  console.log(">> 1\n");
-  fs.readFile("./promises/arq_00.txt", (err, texto) => {
+  const callback = (err, data) => {
     if (err) {
       console.log(err);
+      console.log();
     } else {
-      setTimeout(() => console.log(texto.toString()), 2000);
+      console.log(data);
+      console.log();
     }
-  });
+  };
+  console.log();
+  console.log("\n>> 1\n");
+  fs.readFile("./arq_00.txt", "utf8", callback);
   console.log(">> 2\n");
-  //
-  // SAÍDA
-  //
-  //    >> 1
-  //
-  //    >> 2
-  //
-  //    [[ FILE CONTENT ]]
-  //
 }
 
 function multipleAsyncFile() {
-  fs.readFile("./promises/arq_00.txt", (err, texto) => {
+  fs.readFile("./arq_00.txt", (err, data) => {
     if (err) {
       throw new Error(err);
     } else {
-      fs.writeFile("./promises/arq_01.txt", texto, (err) => {
+      fs.writeFile("./arq_01.txt", data, (err) => {
         if (err) {
           throw new Error(err);
         } else {
-          fs.readFile("./promises/arq_01.txt", (err, texto) => {
+          fs.readFile("./arq_01.txt", (err, data) => {
             if (err) {
               throw new Error(err);
             } else {
-              let txtUpp = texto.toString().toUpperCase();
-              fs.writeFile("./promises/arq_02.txt", txtUpp, (err) => {
+              let dataUpp = data.toString().toUpperCase();
+              fs.writeFile("./arq_02.txt", dataUpp, (err) => {
                 if (err) {
                   throw new Error(err);
                 } else {
-                  fs.readFile("./promises/arq_02.txt", (err, texto) => {
+                  fs.readFile("./arq_02.txt", (err, data) => {
                     if (err) {
                       throw new Error(err);
                     } else {
-                      console.log(texto.toString());
+                      console.log(data.toString());
                     }
                   });
                 }
@@ -73,11 +59,11 @@ function multipleAsyncFile() {
 }
 
 function multipleBlockAsyncFile() {
-  const callbackReadFileArq_00 = (err, texto) => {
+  const callbackReadFileArq_00 = (err, data) => {
     if (err) {
       throw new Error(err);
     } else {
-      fs.writeFile("./promises/arq_01.txt", texto, callbackWriteFileArq_01);
+      fs.writeFile("./arq_01.txt", data, callbackWriteFileArq_01);
     }
   };
 
@@ -85,16 +71,16 @@ function multipleBlockAsyncFile() {
     if (err) {
       throw new Error(err);
     } else {
-      fs.readFile("./promises/arq_01.txt", callbackReadFileArq_02);
+      fs.readFile("./arq_01.txt", callbackReadFileArq_02);
     }
   };
 
-  const callbackReadFileArq_02 = (err, texto) => {
+  const callbackReadFileArq_02 = (err, data) => {
     if (err) {
       throw new Error(err);
     } else {
-      let txtUpp = texto.toString().toUpperCase();
-      fs.writeFile("./promises/arq_02.txt", txtUpp, callbackWriteFileArq_02);
+      let dataUpp = data.toString().toUpperCase();
+      fs.writeFile("./arq_02.txt", dataUpp, callbackWriteFileArq_02);
     }
   };
 
@@ -102,41 +88,41 @@ function multipleBlockAsyncFile() {
     if (err) {
       throw new Error(err);
     } else {
-      fs.readFile("./promises/arq_02.txt", callbackReadFileArq_02_End);
+      fs.readFile("./arq_02.txt", callbackReadFileArq_02_End);
     }
   };
 
-  const callbackReadFileArq_02_End = (err, texto) => {
+  const callbackReadFileArq_02_End = (err, data) => {
     if (err) {
       throw new Error(err);
     } else {
-      console.log(texto.toString());
+      console.log(data.toString());
     }
   };
 
-  fs.readFile("./promises/arq_00.txt", callbackReadFileArq_00);
+  fs.readFile("./arq_00.txt", callbackReadFileArq_00);
 }
 
 function promisesFile() {
-  const promiseWriteFileArq_01 = (texto) => {
-    return fs.promises.writeFile("./promises/arq_01.txt", texto, "utf-8");
+  const promiseWriteFileArq_01 = (data) => {
+    return fs.promises.writeFile("./arq_01.txt", data, "utf-8");
   };
 
   const promiseReadFileArq_01 = () => {
-    return fs.promises.readFile("./promises/arq_01.txt", "utf-8");
+    return fs.promises.readFile("./arq_01.txt", "utf-8");
   };
 
-  const promiseWriteFileArq_02 = (texto) => {
-    let txtUpp = texto.toString().toUpperCase();
-    return fs.promises.writeFile("./promises/arq_02.txt", txtUpp, "utf-8");
+  const promiseWriteFileArq_02 = (data) => {
+    let dataUpp = data.toString().toUpperCase();
+    return fs.promises.writeFile("./arq_02.txt", dataUpp, "utf-8");
   };
 
   const promiseReadFileArq_02 = () => {
-    return fs.promises.readFile("./promises/arq_02.txt", "utf-8");
+    return fs.promises.readFile("./arq_02.txt", "utf-8");
   };
 
-  const showFileArq_02 = (texto) => {
-    console.log(texto);
+  const showFileArq_02 = (data) => {
+    console.log(data);
   };
 
   const showError = (err) => {
@@ -144,7 +130,7 @@ function promisesFile() {
   };
 
   fs.promises
-    .readFile("./promises/arq_00.txt", "utf-8")
+    .readFile("./arq_00.txt", "utf-8")
     .then(promiseWriteFileArq_01)
     .then(promiseReadFileArq_01)
     .then(promiseWriteFileArq_02)
@@ -154,40 +140,40 @@ function promisesFile() {
 }
 
 async function asyncAwaitFile() {
-  const promiseWriteFileArq_01 = (texto) => {
-    return fs.promises.writeFile("./promises/arq_01.txt", texto, "utf-8");
+  const promiseWriteFileArq_01 = (data) => {
+    return fs.promises.writeFile("./arq_01.txt", data, "utf-8");
   };
 
   const promiseReadFileArq_01 = () => {
-    return fs.promises.readFile("./promises/arq_01.txt", "utf-8");
+    return fs.promises.readFile("./arq_01.txt", "utf-8");
   };
 
-  const promiseWriteFileArq_02 = (texto) => {
-    let txtUpp = texto.toString().toUpperCase();
-    return fs.promises.writeFile("./promises/arq_02.txt", txtUpp, "utf-8");
+  const promiseWriteFileArq_02 = (data) => {
+    let dataUpp = data.toString().toUpperCase();
+    return fs.promises.writeFile("./arq_02.txt", dataUpp, "utf-8");
   };
 
   const promiseReadFileArq_02 = () => {
-    return fs.promises.readFile("./promises/arq_02.txt", "utf-8");
+    return fs.promises.readFile("./arq_02.txt", "utf-8");
   };
 
-  const showFileArq_02 = (texto) => {
-    console.log(texto);
+  const showFileArq_02 = (data) => {
+    console.log(data);
   };
 
   try {
-    let texto = await fs.promises.readFile("./promises/arq_00.txt", "utf-8");
-    await promiseWriteFileArq_01(texto);
-    texto = await promiseReadFileArq_01();
-    await promiseWriteFileArq_02(texto);
-    texto = await promiseReadFileArq_02();
-    showFileArq_02(texto);
+    let data = await fs.promises.readFile("./arq_00.txt", "utf-8");
+    await promiseWriteFileArq_01(data);
+    data = await promiseReadFileArq_01();
+    await promiseWriteFileArq_02(data);
+    data = await promiseReadFileArq_02();
+    showFileArq_02(data);
   } catch (err) {
     throw new Error(err);
   }
 }
 
-switch ("ASAWFILE") {
+switch (process.argv[2]) {
   case "SYNC":
     syncAction();
     break;
@@ -207,5 +193,15 @@ switch ("ASAWFILE") {
     asyncAwaitFile();
     break;
   default:
+    console.log(`
+Informe um parâmetro válido:
+
+  SYNC     -> syncAction()
+  ASYNC    -> asyncAction()
+  MASYNC   -> multipleAsyncFile()
+  MBASYNC  -> multipleBlockAsyncFile()
+  PRFILE   -> promisesFile()
+  ASAWFILE -> asyncAwaitFile()
+`);
     break;
 }
