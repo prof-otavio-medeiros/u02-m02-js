@@ -3,12 +3,14 @@ import fs from "fs";
 function syncAction() {
   console.log("\n>> 1\n");
   const data = fs.readFileSync("./arq_00.txt", "utf-8");
-  console.log(data.toString());
+  console.log(data);
   console.log("\n>> 2\n");
 }
 
 function asyncAction() {
-  const callback = (err, data) => {
+  console.log();
+  console.log("\n>> 1\n");
+  fs.readFile("./arq_00.txt", "utf8", (err, data) => {
     if (err) {
       console.log(err);
       console.log();
@@ -16,11 +18,21 @@ function asyncAction() {
       console.log(data);
       console.log();
     }
-  };
-  console.log();
-  console.log("\n>> 1\n");
-  fs.readFile("./arq_00.txt", "utf8", callback);
+  });
   console.log(">> 2\n");
+  // const callback = (err, data) => {
+  //   if (err) {
+  //     console.log(err);
+  //     console.log();
+  //   } else {
+  //     console.log(data);
+  //     console.log();
+  //   }
+  // };
+  // console.log();
+  // console.log("\n>> 1\n");
+  // fs.readFile("./arq_00.txt", "utf8", callback);
+  // console.log(">> 2\n");
 }
 
 function multipleAsyncFile() {
